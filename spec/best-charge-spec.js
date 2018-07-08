@@ -1,7 +1,7 @@
 'use strict';
 
 const {spiltIdAndCount,
-       addItemsDetails
+       addItemsDetailsWithSubtotal
       } = require('../src/best-charge')
     
 const {loadAllItems} = require('../src/items')
@@ -33,12 +33,12 @@ describe('Unit Test', function() {
       {"id":"ITEM0022","count":"1"}
     ];
     //when
-    const itemsDetails = addItemsDetails(idAndCounts,loadAllItems());
+    const itemsDetails = addItemsDetailsWithSubtotal(idAndCounts,loadAllItems());
     //then
     let result = JSON.stringify([
-      {"id":"ITEM0001","name":"黄焖鸡","count":"1","price":18},
-      {"id":"ITEM0013","name":"肉夹馍","count":"2","price":6},
-      {"id":"ITEM0022","name":"凉皮","count":"1","price":8}
+      {"id":"ITEM0001","name":"黄焖鸡","count":"1","price":18,"subtotal":18},
+      {"id":"ITEM0013","name":"肉夹馍","count":"2","price":6,"subtotal":12},
+      {"id":"ITEM0022","name":"凉皮","count":"1","price":8,"subtotal":8}
     ])
     expect(JSON.stringify(itemsDetails)).toBe(result)
   });

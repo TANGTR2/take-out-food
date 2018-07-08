@@ -16,7 +16,7 @@ function spiltIdAndCount(selectedItems){
   return idAndCounts;
 }
 
-function addItemsDetails(idAndCounts,allItems){
+function addItemsDetailsWithSubtotal(idAndCounts,allItems){
   const itemsDetails = [];
   for(let item of idAndCounts){
     for(let i=0;i<allItems.length;i++){
@@ -25,7 +25,8 @@ function addItemsDetails(idAndCounts,allItems){
           "id":allItems[i].id,
           "name":allItems[i].name,
           "count":item.count,
-          "price":allItems[i].price
+          "price":allItems[i].price,
+          "subtotal":parseFloat(item.count)*parseFloat(allItems[i].price)
         });
       }
     }  
@@ -36,4 +37,4 @@ function addItemsDetails(idAndCounts,allItems){
 
 module.exports={
   spiltIdAndCount,
-  addItemsDetails}
+  addItemsDetailsWithSubtotal}
