@@ -1,7 +1,8 @@
 'use strict';
 
 const {spiltIdAndCount,
-       addItemsDetailsWithSubtotal
+       addItemsDetailsWithSubtotal,
+       calculateBeforeTotal
       } = require('../src/best-charge')
     
 const {loadAllItems} = require('../src/items')
@@ -41,6 +42,22 @@ describe('Unit Test', function() {
       {"id":"ITEM0022","name":"凉皮","count":"1","price":8,"subtotal":8}
     ])
     expect(JSON.stringify(itemsDetails)).toBe(result)
+  });
+});
+
+describe('Unit Test', function() {
+  it('should calculate total  before discount', function() {
+    //given
+    const inputs = [
+      {"id":"ITEM0001","name":"黄焖鸡","count":"1","price":18,"subtotal":18},
+      {"id":"ITEM0013","name":"肉夹馍","count":"2","price":6,"subtotal":12},
+      {"id":"ITEM0022","name":"凉皮","count":"1","price":8,"subtotal":8}
+    ];
+    //when
+    const output = calculateBeforeTotal(inputs)
+    //then
+    let result = 38;
+    expect(output).toEqual(result)
   });
 });
 

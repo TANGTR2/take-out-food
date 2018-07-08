@@ -26,7 +26,7 @@ function addItemsDetailsWithSubtotal(idAndCounts,allItems){
           "name":allItems[i].name,
           "count":item.count,
           "price":allItems[i].price,
-          "subtotal":parseFloat(item.count)*parseFloat(allItems[i].price)
+          "subtotal":parseFloat(item.count)*allItems[i].price
         });
       }
     }  
@@ -35,6 +35,16 @@ function addItemsDetailsWithSubtotal(idAndCounts,allItems){
   return itemsDetails;
 }
 
+function calculateBeforeTotal(itemsDetails){
+  let beforTotal = 0;
+  for(let itemsDetail of itemsDetails){
+    beforTotal += itemsDetail.subtotal;
+  }
+  console.info(beforTotal);
+  return beforTotal;
+}
+
 module.exports={
   spiltIdAndCount,
-  addItemsDetailsWithSubtotal}
+  addItemsDetailsWithSubtotal,
+  calculateBeforeTotal}
