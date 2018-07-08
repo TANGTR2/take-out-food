@@ -1,6 +1,10 @@
 'use strict';
 
-const {spiltIdAndCount} = require('../src/best-charge')
+const {spiltIdAndCount,
+       addItemsDetails
+      } = require('../src/best-charge')
+    
+const {loadAllItems} = require('../src/items')
 
 describe('Unit Test', function() {
 
@@ -11,11 +15,32 @@ describe('Unit Test', function() {
     const idAndCounts = spiltIdAndCount(selectedItems);
     //then
     let result = JSON.stringify([
-      {"id":"ITEM0001","count":1},
-      {"id":"ITEM0013","count":2},
-      {"id":"ITEM0022","count":1}
+      {"id":"ITEM0001","count":"1"},
+      {"id":"ITEM0013","count":"2"},
+      {"id":"ITEM0022","count":"1"}
     ]);
     expect(JSON.stringify(idAndCounts)).toBe(result)
+  });
+});
+
+describe('Unit Test', function() {
+
+  it('should add items details', function() {
+    //given
+    const idAndCounts = [
+      {"id":"ITEM0001","count":"1"},
+      {"id":"ITEM0013","count":"2"},
+      {"id":"ITEM0022","count":"1"}
+    ];
+    //when
+    const itemsDetails = addItemsDetails(idAndCounts,loadAllItems());
+    //then
+    let result = JSON.stringify([
+      {"id":"ITEM0001","name":"黄焖鸡","count":"1","price":18},
+      {"id":"ITEM0013","name":"肉夹馍","count":"2","price":6},
+      {"id":"ITEM0022","name":"凉皮","count":"1","price":8}
+    ])
+    expect(JSON.stringify(itemsDetails)).toBe(result)
   });
 });
 

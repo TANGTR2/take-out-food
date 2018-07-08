@@ -9,12 +9,31 @@ function spiltIdAndCount(selectedItems){
     let idAndCount = {};
     let div = item.split(" ");
     idAndCount.id = div[0];
-    idAndCount.count = parseFloat(div[2]);
+    idAndCount.count = div[2];
     idAndCounts.push(idAndCount);
   }
-  //console.info(idAndCounts);
+  console.log(idAndCounts);
   return idAndCounts;
 }
 
+function addItemsDetails(idAndCounts,allItems){
+  const itemsDetails = [];
+  for(let item of idAndCounts){
+    for(let i=0;i<allItems.length;i++){
+      if(item.id === allItems[i].id){
+        itemsDetails.push({
+          "id":allItems[i].id,
+          "name":allItems[i].name,
+          "count":item.count,
+          "price":allItems[i].price
+        });
+      }
+    }  
+  }
+  console.info(itemsDetails);
+  return itemsDetails;
+}
+
 module.exports={
-  spiltIdAndCount}
+  spiltIdAndCount,
+  addItemsDetails}
