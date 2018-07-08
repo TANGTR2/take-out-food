@@ -2,10 +2,13 @@
 
 const {spiltIdAndCount,
        addItemsDetailsWithSubtotal,
-       calculateBeforeTotal
+       calculateBeforeTotal,
+       calculateSave
       } = require('../src/best-charge')
     
 const {loadAllItems} = require('../src/items')
+
+const {loadPromotions} = require('../src/promotions')
 
 describe('Unit Test', function() {
 
@@ -58,6 +61,26 @@ describe('Unit Test', function() {
     //then
     let result = 38;
     expect(output).toEqual(result)
+  });
+});
+
+describe('Unit Test', function() {
+  it('should calculate promotions of save', function() {
+    //given
+    const inputs = [
+      {"id":"ITEM0001","name":"黄焖鸡","count":"1","price":18,"subtotal":18},
+      {"id":"ITEM0013","name":"肉夹馍","count":"2","price":6,"subtotal":12},
+      {"id":"ITEM0022","name":"凉皮","count":"1","price":8,"subtotal":8}
+    ];
+    const beforTotal = 38;
+    //when
+    const output = calculateSave(beforTotal,inputs,loadPromotions());
+    //then
+    let result = JSON.stringify([
+      {"saveType":"满30减6元","saveCharge":6},
+      {"saveType":"指定菜品半价","saveCharge":13},
+    ]);
+    expect(JSON.stringify(output)).toBe(result)
   });
 });
 

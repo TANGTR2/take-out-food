@@ -44,7 +44,36 @@ function calculateBeforeTotal(itemsDetails){
   return beforTotal;
 }
 
+function calculateSave(beforTotal,itemsDetails,promotions){
+  let save = [];
+  for(let promotion of promotions){
+    if(promotion.type === "满30减6元"){
+      if(beforTotal >= 30)
+      save.push({
+        "saveType":promotion.type,
+        "saveCharge":6
+      });
+    }
+    if(promotion.type ==="指定菜品半价"){
+      let tempsave = 0;
+      for(let i=0;i<itemsDetails.length;i++){
+        for(let j=0;j<promotion.items.length;j++){
+          if(itemsDetails[i].id === promotion.items[j])
+            tempsave += itemsDetails[i].price/2;
+        }
+      }
+      save.push({
+        "saveType":promotion.type,
+        "saveCharge":tempsave
+      });
+    }
+  }
+  console.log(save);
+  return save;
+}
+
 module.exports={
   spiltIdAndCount,
   addItemsDetailsWithSubtotal,
-  calculateBeforeTotal}
+  calculateBeforeTotal,
+  calculateSave}
