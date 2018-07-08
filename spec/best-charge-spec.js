@@ -3,7 +3,8 @@
 const {spiltIdAndCount,
        addItemsDetailsWithSubtotal,
        calculateBeforeTotal,
-       calculateSave
+       calculateSave,
+       selectPromotion
       } = require('../src/best-charge')
     
 const {loadAllItems} = require('../src/items')
@@ -78,9 +79,24 @@ describe('Unit Test', function() {
     //then
     let result = JSON.stringify([
       {"saveType":"满30减6元","saveCharge":6},
-      {"saveType":"指定菜品半价","saveCharge":13},
+      {"saveType":"指定菜品半价","saveCharge":13}
     ]);
     expect(JSON.stringify(output)).toBe(result)
+  });
+});
+
+describe('Unit Test', function() {
+  it('should calculate promotions of save', function() {
+    //given
+    const inputs = [
+      {"saveType":"满30减6元","saveCharge":6},
+      {"saveType":"指定菜品半价","saveCharge":13}
+    ];
+    //when
+    const output = selectPromotion(inputs);
+    //then
+    let result = JSON.stringify({saveType: "指定菜品半价", saveCharge: 13 });
+    expect(JSON.stringify(output)).toEqual(result)
   });
 });
 

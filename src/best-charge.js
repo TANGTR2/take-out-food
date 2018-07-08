@@ -72,8 +72,25 @@ function calculateSave(beforTotal,itemsDetails,promotions){
   return save;
 }
 
+function selectPromotion(save){
+  const saveChargeArray = [];
+  const saveArray = {};
+  let maxSave = 0;
+  for(let i=0;i<save.length;i++)
+    saveChargeArray.push(save[i].saveCharge);
+  maxSave = Math.max.apply(null,saveChargeArray);
+  for(let i=0;i<save.length;i++){
+    if(save[i].saveCharge === maxSave)
+      saveArray.saveType = save[i].saveType;
+  }
+  saveArray.saveCharge = maxSave;
+  console.log(saveArray);
+  return saveArray;
+}
+
 module.exports={
   spiltIdAndCount,
   addItemsDetailsWithSubtotal,
   calculateBeforeTotal,
-  calculateSave}
+  calculateSave,
+  selectPromotion}
